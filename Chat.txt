@@ -1,0 +1,20 @@
+Mher: Hello world
+Mher: How are you 
+Mher: exit
+Margarita : Hello
+Margarita : exit
+Mher: Hello
+Mher: Hello
+Mher: how are you?
+Mher: hello
+Mher: hi
+Mher: how are you
+Mher: So We've done this
+Mher: 1234567
+John: I'm here
+2020-11-28 16:23:09John: Still here 2020-11-28 16:23:44
+Mher: hi 2020-11-28 16:24:50
+Erik: Hey everyone 2020-11-28 16:48:03
+Erik: Welcome 2020-11-28 16:57:21
+Erik: exit 2020-11-28 16:57:25
+Erik: hey there 2020-11-28 17:01:49
