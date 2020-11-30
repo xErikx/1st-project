@@ -10,6 +10,6 @@ def opening():
 def main():
     opening()
 
-    
+
 if __name__ == '__main__':
     main()
