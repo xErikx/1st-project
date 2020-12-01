@@ -7,6 +7,7 @@ def opening():
 
     f.close()
 
+
 def main():
     opening()
 
