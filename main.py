@@ -1,8 +1,14 @@
 import datetime
-
+import socket
 import json
 
 USERS = {}
+MSG_LENGTH = 128
+SERVER = socket.gethostbyname(socket.gethostname())
+PORT = 5050
+ADDR = (SERVER, PORT)
+FORMAT = "utf-8"
+SERVER_EXIT = "!QUIT"
 
 
 def send(name, message):
@@ -36,12 +42,35 @@ def chat_login():
 
 def chat_print(nickname):
     global USERS
+    chat = connect_to_server()
     while True:
         message = input()
-        send(USERS[nickname], message)
         if message == "exit":
             print("Goodbye")
+            send_msg(SERVER_EXIT, chat)
             break
+        elif message == SERVER_EXIT:
+            print("You can't use this command")
+            print('If you want to exit the server, enter "exit" command')
+            continue
+        send(USERS[nickname], message)
+        send_msg(message, chat)
+
+
+def connect_to_server():
+    chat = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    chat.connect(ADDR)
+    return chat
+
+
+def send_msg(msg, socket):
+    message = msg.encode(FORMAT)
+    msg_length = len(message)
+    send_length = str(msg_length).encode(FORMAT)
+    send_length += b' ' * (MSG_LENGTH - len(send_length))
+    socket.send(send_length)
+    socket.send(message)
+    print(socket.recv(2048).decode(FORMAT))
 
 
 def config_write():

@@ -22,3 +22,9 @@ Erik: Hello people 2020-12-05 15:46:21
 Erik: exit 2020-12-05 15:47:08
 Mher: Hi Erik 2020-12-05 15:47:35
 Mher: exit 2020-12-05 15:47:54
+Mher: Hello everyone 2020-12-14 17:34:54
+Erik: hi 2020-12-14 17:41:29
+Erik: what's up? 2020-12-14 17:41:38
+Erik: !QUIT 2020-12-14 17:41:44
+Erik: hi 2020-12-14 17:41:51
+Erik: Testing 2020-12-14 17:50:30
