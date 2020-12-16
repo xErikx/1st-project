@@ -28,3 +28,11 @@ Erik: what's up? 2020-12-14 17:41:38
 Erik: !QUIT 2020-12-14 17:41:44
 Erik: hi 2020-12-14 17:41:51
 Erik: Testing 2020-12-14 17:50:30
+Erik: hello there 2020-12-16 17:31:50
+Erik: hello there 2020-12-16 17:42:22
+Erik: hello there 2020-12-16 17:44:11
+Erik: how are you doing? 2020-12-16 17:44:47
+Erik: Hello there 2020-12-16 17:47:21
+Erik: how are you? 2020-12-16 17:47:26
+Erik: testing queue 2020-12-16 17:55:15
+Erik: hi 2020-12-16 17:55:17
