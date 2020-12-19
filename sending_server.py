@@ -91,6 +91,7 @@ def server_start():
 
 
 def main():
+    # making thread for reading_lines function
     list_thread = threading.Thread(target=reading_lines_in_file)
     list_thread.start()
     server_start()

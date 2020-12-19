@@ -11,9 +11,13 @@ client.connect(ADDR)
 
 
 def chat_receive():
+    # receiving messages from server
     while True:
+        # receiving the length of the message for reading
         msg_length = client.recv(MSG_LENGTH).decode(FORMAT)
+        # converting length from string to integer
         msg_length = int(msg_length)
+        # receiving the length in int and formatting into `utf-8` for output
         msg = client.recv(msg_length).decode(FORMAT)
         print(msg)
 
