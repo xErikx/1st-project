@@ -1,4 +1,45 @@
 Hello there
 how are you?
 !QUIT
-testing queuehi!QUIT
+testing queuehi!QUITquit
+!QUIT
+Working
+Working
+Working 1
+a
+
+b
+
+a
+Hello
+Now it's working
+Hello
+THis is Mher
+The chat is working very fine
+cas
+da
+das
+das
+d
+asd
+asd
+asd
+as
+d
+asd
+asd
+asdas
+dsa
+das
+das
+das
+d
+asd
+asd
+as
+das
+das
+d
+asd
+Erik's First Hello Wolrd!
+!QUIT

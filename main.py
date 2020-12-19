@@ -64,10 +64,10 @@ def connect_to_server():
 
 
 def send_msg(msg, socket):
-    message = msg.encode(FORMAT)
-    msg_length = len(message)
-    send_length = str(msg_length).encode(FORMAT)
-    send_length += b' ' * (MSG_LENGTH - len(send_length))
+    message = msg.encode(FORMAT) # 'welcome'
+    msg_length = len(message) # 7
+    send_length = str(msg_length).encode(FORMAT) #  7
+    send_length += b' ' * (MSG_LENGTH - len(send_length)) #
     socket.send(send_length)
     socket.send(message)
     print(socket.recv(2048).decode(FORMAT))
