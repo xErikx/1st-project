@@ -1,4 +1,5 @@
 import socket
+import helper
 import threading
 
 SERVER_IP = socket.gethostbyname(socket.gethostname())
@@ -11,40 +12,15 @@ LIST_MASSAGES = []
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 
-
-def send_message_to_client(msg, connection):
-    msg = msg.encode(FORMAT)
-    # We need for that 7 boxes - 1 box per char
-    msg_length = len(msg)
-
-    # We need to convert the number of boxes from INT to String
-    # so we will know how many boxes we need to send the LEN on message
-    # Every char is a Box !
-    msg_length = str(msg_length)
-
-    # getting number of  boxes we need for sending the length of the original message
-    send_length_boxes_count = len(msg_length)
-
-    # buffer = <the length of the of the original message>
-    # + <empty boxes> * <number of total boxes - number of the boxes we use for sending the length>
-    buffer = msg_length.encode(FORMAT) + b' ' * (MSG_LENGTH - send_length_boxes_count)
-
-    # sending the length to the client
-    connection.send(buffer)
-
-    # sending the message to the client
-    connection.send(msg)
-
-
-def client_handling(connection, address):
+def client_handling(client_socket, address):
     # we want to send 'Welcome'
-    msg = "Welcome"
+    welcome_message = "Welcome"
 
     print(f"[CONNECTED] to {address}")
 
     # Here we're calling this function which sends the message to the client
     # Sending 'Welcome' to the client!
-    send_message_to_client(msg, connection)
+    helper.send_msg(client_socket, welcome_message)
 
     # list counter (so we will know where we are inside the list!)
     index = 0
@@ -55,7 +31,7 @@ def client_handling(connection, address):
             continue
         else:
             # if inside the list - sending the message to the client
-            send_message_to_client(LIST_MASSAGES[index], connection)
+            helper.send_msg(client_socket, LIST_MASSAGES[index])
 
             # going to the next line - the next Index
             index += 1
@@ -79,9 +55,13 @@ def reading_lines_in_file():
 
 
 def server_start():
+    # Starting the sending server 
     server.listen()
     print(f"Server is listening on {SERVER_IP}")
+
     while True:
+
+        # getting connection from client 
         connection, address = server.accept()
         client_thread = threading.Thread(target=client_handling, args=(connection, address))
         client_thread.start()

@@ -1,6 +1,7 @@
 import datetime
 import socket
 import json
+import helper
 
 USERS = {}
 MSG_LENGTH = 128
@@ -11,11 +12,11 @@ FORMAT = "utf-8"
 SERVER_EXIT = "!QUIT"
 
 
-def send(name, message):
+def write_to_file(name, message):
     # making variable for date and time
     now = datetime.datetime.now()
     # opening file in `append` mode
-    f = open("C:\\Users\\ernes\\Documents\\Code\\IntIdea codes\\1st-project\\Chat.txt", mode="a")
+    f = open("Chat.txt", mode="a")
     print(f"{name}: {message}"
           f" {now.strftime('%Y-%m-%d %H:%M:%S')}")
     # writing name, massage and date/time into file
@@ -27,7 +28,7 @@ def send(name, message):
 def config_load():
     global USERS
     # opening json configuration file for names and nicknames
-    config = open("C:\\Users\\ernes\\Documents\\Code\\IntIdea codes\\1st-project\\Config.json", mode="r")
+    config = open("Config.json", mode="r")
     USERS = json.load(config)
 
 
@@ -49,51 +50,48 @@ def chat_login():
 
 def chat_print(nickname):
     global USERS
-    # connecting client to the server for the messages
-    chat = connect_to_server()
+    
+    # Here we are connecting to our server
+    # returns a socket to the server, we need to pass it to the helper functions
+    chat_socket = helper.connect_to_server(ADDR)
+
     while True:
+
+        # Get input from the user
         message = input()
+
+
         if message == "exit":
             print("Goodbye")
-            send_msg(SERVER_EXIT, chat)
+
+            # sending exit to the server so the server will close connection 
+            helper.send_msg(chat_socket, SERVER_EXIT)
+
+            # getting server response - "Msg Recieved"
+            print(helper.recv_msg(chat_socket))
+
             break
         elif message == SERVER_EXIT:
+
+            # server exit command - invalid command for client 
             print("You can't use this command")
             print('If you want to exit the server, enter "exit" command')
             continue
-        send(USERS[nickname], message)
-        send_msg(message, chat)
 
+        # writing the message to the file (local, not sending to the server)
+        write_to_file(USERS[nickname], message)
 
-def connect_to_server():
-    # Chat connection to the server
-    chat = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # client connection to IP address and Port
-    chat.connect(ADDR)
-    # returning variable `chat` for the chat_print function connection
-    return chat
+        # sending the user input to the server
+        helper.send_msg(chat_socket, message)
 
+        # getting server response - "Msg Recieved"
+        print(helper.recv_msg(chat_socket))
 
-def send_msg(msg, socket):
-    # initial message which must be sent
-    message = msg.encode(FORMAT)
-    # variable for message char length as integer
-    msg_length = len(message)
-    # converting length into str and formatting into `utf-8`
-    send_length = str(msg_length).encode(FORMAT)
-    # refilling the empty bytes with a space so that we can send the full length
-    send_length += b' ' * (MSG_LENGTH - len(send_length))
-    # sending to the socket the full length including the message
-    socket.send(send_length)
-    # sending the main message to the client
-    socket.send(message)
-    # printing out the receive in 2048 bytes
-    print(socket.recv(2048).decode(FORMAT))
 
 
 def config_write():
     global USERS
-    f = open("C:\\Users\\ernes\\Documents\\Code\\IntIdea codes\\1st-project\\Config.json", mode="w")
+    f = open("Config.json", mode="w")
     # storing Users and file into json
     json.dump(USERS, f)
     f.close()
@@ -105,7 +103,6 @@ def main():
 
     chat_print(nickname)
     config_write()
-
 
 if __name__ == '__main__':
     main()
