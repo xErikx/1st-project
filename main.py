@@ -102,6 +102,7 @@ def config_write():
 def main():
     config_load()
     nickname = chat_login()
+
     chat_print(nickname)
     config_write()
 

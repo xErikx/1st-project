@@ -1,7 +1,6 @@
 import socket
 import threading
 
-
 SERVER_IP = socket.gethostbyname(socket.gethostname())
 PORT = 4041
 MSG_LENGTH = 128
@@ -75,7 +74,6 @@ def reading_lines_in_file():
 
         # if the line is not empty (if line is empty - we got to the EOF)
         if new_line != '':
-
             # adding the line to the message list
             LIST_MASSAGES.append(new_line)
 
