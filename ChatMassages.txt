@@ -1,60 +1,7 @@
-Hello there
-how are you?
-!QUIT
-testing queuehi!QUITquit
-!QUIT
-Working
-Working
-Working 1
-a
-
-b
-
-a
-Hello
-Now it's working
-Hello
-THis is Mher
-The chat is working very fine
-cas
-da
-das
-das
-d
-asd
-asd
-asd
-as
-d
-asd
-asd
-asdas
-dsa
-das
-das
-das
-d
-asd
-asd
-as
-das
-das
-d
-asd
-Erik's First Hello Wolrd!
-!QUIT
-meir
-a
-asd
-Hello
-World
-how are you ?
-sad
-sad
-asd
-sdaasd
-das
-test
-test1
-asd
-Hello World
+Erik 2020-12-22 21:03:23
+hello there
+ 2020-12-22 21:03:27
+hi 
+ 2020-12-22 21:03:29
+testing
+ 2020-12-22 21:03:31

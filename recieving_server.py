@@ -2,6 +2,7 @@ import socket
 import threading
 import queue
 import helper
+import datetime
 
 MSG_LENGTH = 128
 SERVER = socket.gethostbyname(socket.gethostname())
@@ -22,11 +23,13 @@ def chat_connect(conn, addr):  # chat_connection to our server
 
     #####
 
-    # here recieve from client the client's name and then store it in a variable, then use it when printing messages
+    # here receive from client the client's name and then store it in a variable, then use it when printing messages
 
     #####
 
-    client_name = ""
+    client_name = helper.recv_msg(conn)
+    msg_file_save(client_name)
+
 
     while connection:
 
@@ -56,7 +59,7 @@ def server_write_to_file():
     global GLOBAL_QUEUE
 
     while True:
-        # Getting a recieved message from queue
+        # Getting a received message from queue
         returned_msg = GLOBAL_QUEUE.get()
 
         # writing to file 
@@ -67,8 +70,9 @@ def server_write_to_file():
 
 
 def msg_file_save(sample_msg):
+    now = datetime.datetime.now()
     f = open("ChatMassages.txt", mode="a")
-    f.write(sample_msg)
+    f.write(f"{sample_msg} {now.strftime('%Y-%m-%d %H:%M:%S')}\n")
     f.close()
 
 
@@ -92,7 +96,7 @@ def start_server():
 
 
 def main():
-    # start_servering a thread which will always get messages from queue and write to flie
+    # start_servering a thread which will always get messages from queue and write to file
     list_thread = threading.Thread(target=server_write_to_file)
     list_thread.start()
 

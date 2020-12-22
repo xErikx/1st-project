@@ -85,3 +85,45 @@ Erik: test 2020-12-21 21:02:11
 Erik: test1 2020-12-21 21:02:19
 Erik: asd 2020-12-21 21:02:21
 Erik: Hello World 2020-12-21 21:02:27
+Erik: Hello, testing 2020-12-22 15:33:12
+Erik: Hello, testing the file? 2020-12-22 15:39:00
+Mher: hi, testing again 2020-12-22 15:41:21
+Mher: just one more test and it should be it 2020-12-22 15:43:18
+Erik: well? 2020-12-22 15:44:44
+Erik: testing 2020-12-22 15:47:47
+Erik: hello there 2020-12-22 15:47:50
+Erik: hey 2020-12-22 15:50:02
+Erik: testing 2020-12-22 15:50:09
+Erik: hey 2020-12-22 16:03:38
+Erik: testing again 2020-12-22 16:03:42
+Erik: hi 2020-12-22 16:08:34
+Erik: testing 2020-12-22 16:08:37
+Erik: what's the big deal 2020-12-22 16:09:02
+Erik: hi, testing 2020-12-22 17:28:11
+Erik: once more 2020-12-22 17:30:14
+Erik:  2020-12-22 17:30:44
+Erik: just to be sure 2020-12-22 17:31:10
+Erik: hey there 2020-12-22 17:32:20
+Erik: hello 2020-12-22 17:33:20
+Erik: welcome to server 2020-12-22 17:39:47
+Erik: trying to test the order of the messages and the extra name typing before the second message 2020-12-22 17:41:09
+Erik: hello once again 2020-12-22 17:43:49
+Erik: secondary test 2020-12-22 17:43:53
+Erik: shalom everybody 2020-12-22 17:58:58
+Erik: show must go on 2020-12-22 17:59:07
+Erik: good evening 2020-12-22 18:02:52
+Erik: hi 2020-12-22 18:02:55
+Erik: Hello there 2020-12-22 20:53:53
+Erik: how are you 2020-12-22 20:54:23
+Erik: any good news? 2020-12-22 20:54:35
+Erik: testing one more time 2020-12-22 20:55:54
+Erik: hi 2020-12-22 20:57:43
+Erik: good morning 2020-12-22 20:57:46
+Erik: good morning 2020-12-22 20:59:41
+Erik: hi 2020-12-22 20:59:42
+Erik: hi 2020-12-22 21:02:22
+Erik: good morning 2020-12-22 21:02:25
+Erik: hello there 2020-12-22 21:02:28
+Erik: hello there 2020-12-22 21:03:27
+Erik: hi  2020-12-22 21:03:29
+Erik: testing 2020-12-22 21:03:31

@@ -54,7 +54,8 @@ def chat_print(nickname):
     # Here we are connecting to our server
     # returns a socket to the server, we need to pass it to the helper functions
     chat_socket = helper.connect_to_server(ADDR)
-
+    # sending user name to the server
+    helper.send_msg(chat_socket, USERS[nickname])
     while True:
 
         # Get input from the user
@@ -67,7 +68,7 @@ def chat_print(nickname):
             # sending exit to the server so the server will close connection 
             helper.send_msg(chat_socket, SERVER_EXIT)
 
-            # getting server response - "Msg Recieved"
+            # getting server response - "Msg Received"
             print(helper.recv_msg(chat_socket))
 
             break
@@ -84,7 +85,7 @@ def chat_print(nickname):
         # sending the user input to the server
         helper.send_msg(chat_socket, message)
 
-        # getting server response - "Msg Recieved"
+        # getting server response - "Msg Received"
         print(helper.recv_msg(chat_socket))
 
 
