@@ -14,6 +14,7 @@ GLOBAL_QUEUE = queue.Queue()
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
+# \n
 
 
 def chat_connect(conn, addr):  # chat_connection to our server
@@ -28,18 +29,19 @@ def chat_connect(conn, addr):  # chat_connection to our server
     #####
 
     client_name = helper.recv_msg(conn)
-    msg_file_save(client_name)
 
 
     while connection:
 
         # Waiting for a message from client 
         msg = helper.recv_msg(conn)
+        # current message date variable
+        now = datetime.datetime.now()
 
         print("got message")
-
-        # adding the message to the message queue
-        GLOBAL_QUEUE.put(msg)
+        if msg != -1:
+            # adding the message to the message queue
+            GLOBAL_QUEUE.put(f"[{addr}] {client_name}: {msg}: ({now.strftime('%Y-%m-%d %H:%M:%S')})")
 
         # printing the message 
         print(f"[{addr}] {client_name}: {msg}")
@@ -70,9 +72,8 @@ def server_write_to_file():
 
 
 def msg_file_save(sample_msg):
-    now = datetime.datetime.now()
     f = open("ChatMassages.txt", mode="a")
-    f.write(f"{sample_msg} {now.strftime('%Y-%m-%d %H:%M:%S')}\n")
+    f.write(sample_msg)
     f.close()
 
 

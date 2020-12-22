@@ -127,3 +127,10 @@ Erik: hello there 2020-12-22 21:02:28
 Erik: hello there 2020-12-22 21:03:27
 Erik: hi  2020-12-22 21:03:29
 Erik: testing 2020-12-22 21:03:31
+Erik: hi 2020-12-22 22:48:27
+Erik: I'm testing the chat 2020-12-22 22:48:33
+Erik: hi again 2020-12-22 22:50:03
+Erik: just testing 2020-12-22 22:50:06
+Erik: hi 2020-12-22 22:58:14
+Erik: testing once more for -1  2020-12-22 22:58:22
+Erik: let's check 2020-12-22 22:58:25
