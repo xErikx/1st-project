@@ -98,8 +98,8 @@ def start_server():
 
 def main():
     # start_servering a thread which will always get messages from queue and write to file
-    list_thread = threading.Thread(target=server_write_to_file)
-    list_thread.start()
+    # list_thread = threading.Thread(target=server_write_to_file)
+    # list_thread.start()
 
     # start_servering our server
     start_server()
