@@ -3,6 +3,7 @@ import threading
 import queue
 import helper
 import datetime
+import json
 
 MSG_LENGTH = 128
 SERVER = socket.gethostbyname(socket.gethostname())
@@ -11,13 +12,15 @@ ADDR = (SERVER, PORT)
 FORMAT = "utf-8"
 SERVER_EXIT = "!QUIT"
 GLOBAL_QUEUE = queue.Queue()
+USERS = {}
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
-# \n
 
 
 def chat_connect(conn, addr):  # chat_connection to our server
+    users_checking_config()
+
     print(f"[CONNECTION] new {addr} connected")
 
     connection = True
@@ -28,13 +31,31 @@ def chat_connect(conn, addr):  # chat_connection to our server
 
     #####
 
-    client_name = helper.recv_msg(conn)
+    client_creds = helper.recv_msg(conn)
+    if client_creds["operation"] == "login":
+        if client_creds["user_name"] in USERS:
+            if client_creds["password"] == USERS[client_creds["user_name"]]["password"]:
+                helper.send_msg(conn, {"status": True})
+            else:
+                helper.send_msg(conn, {"status": False})
+                conn.close()
+                return
+        else:
+            helper.send_msg(conn, {"status": False})
+            conn.close()
+            return
+    elif client_creds["operation"] == "register":
+        USERS[client_creds["user_name"]] = {"name": client_creds["name"], "password": client_creds["password"]}
+        helper.send_msg(conn, {"status": True})
+        config_write()
 
+    # {"user_name" : user_name, "password": password}
 
+    client_name = ""
     while connection:
 
         # Waiting for a message from client 
-        msg = helper.recv_msg(conn)
+        msg = helper.recv_msg(conn)["msg"]
         # current message date variable
         now = datetime.datetime.now()
 
@@ -47,10 +68,10 @@ def chat_connect(conn, addr):  # chat_connection to our server
         print(f"[{addr}] {client_name}: {msg}")
 
         # returning to the client that the message arrived 
-        helper.send_msg(conn, "Msg received")        
+        helper.send_msg(conn, {"msg": "Msg received"})
 
-    # closing the server
-    conn.close()  
+        # closing the server
+    conn.close()
 
 
 def server_write_to_file():
@@ -77,16 +98,28 @@ def msg_file_save(sample_msg):
     f.close()
 
 
-def start_server():  
+def users_checking_config():
+    global USERS
+    f = open("Config.json", mode="r")
+    USERS = json.load(f)
+    f.close()
 
+
+def config_write():
+    global USERS
+    f = open("Config.json", mode="w")
+    # storing Users and file into json
+    json.dump(USERS, f)
+    f.close()
+
+
+def start_server():
     # starting the server - don't touch 
     server.listen()
     print(f"Server is listening on {SERVER}")
 
-
     while True:
-
-        # getting a connection with client 
+        # getting a connection with client
         conn, addr = server.accept()
 
         # stating the communication with client - every client will work on own function

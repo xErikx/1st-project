@@ -20,7 +20,7 @@ def client_handling(client_socket, address):
 
     # Here we're calling this function which sends the message to the client
     # Sending 'Welcome' to the client!
-    helper.send_msg(client_socket, welcome_message)
+    helper.send_msg(client_socket, {"msg": welcome_message})
 
     # list counter (so we will know where we are inside the list!)
     index = 0
@@ -31,7 +31,7 @@ def client_handling(client_socket, address):
             continue
         else:
             # if inside the list - sending the message to the client
-            helper.send_msg(client_socket, LIST_MASSAGES[index])
+            helper.send_msg(client_socket, {"msg": LIST_MASSAGES[index]})
 
             # going to the next line - the next Index
             index += 1

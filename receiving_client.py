@@ -16,7 +16,7 @@ def chat_receive():
     while True:
         
         # waiting for a message from server
-        msg = helper.recv_msg(client_socket)
+        msg = helper.recv_msg(client_socket)["msg"]
         print(msg)
 
 

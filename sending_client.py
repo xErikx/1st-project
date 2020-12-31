@@ -32,44 +32,58 @@ def config_load():
     USERS = json.load(config)
 
 
-def chat_login():
+def chat_login(chat_socket):
     # Using global variable USERS dictionary
     global USERS
     # registration options for chat program
     print("Would you lake to register or you're registered already?")
     print("Press 1 to register, Press 2 if you're registered")
     choice = int(input())
-    if choice == 1:
+    if choice == 2:
+        user_name = input("Enter your nickname: ")
+        password = input("Enter your password: ")
+        helper.send_msg(chat_socket, {"operation": "login", "user_name": user_name, "password": password})
+        status = helper.recv_msg(chat_socket)["status"]
+        print(status)
+        if not status:
+            return False
+    elif choice == 1:
         nickname = input("Enter your nickname: ")
-        name = input("Enter your name: ")
-        USERS[nickname] = name
-    else:
-        nickname = input("Enter your nickname: ")
-    return nickname
+        user_name = input("Enter your name: ")
+        password = input("Enter your password: ")
+        helper.send_msg(chat_socket, {"operation": "register", "user_name": nickname, "name": user_name, "password": password})
+        status = helper.recv_msg(chat_socket)["status"]
+        print(status)
+        if not status:
+            return False
+    return user_name
 
 
-def chat_print(nickname):
+def chat_print():
     global USERS
-    
+
     # Here we are connecting to our server
     # returns a socket to the server, we need to pass it to the helper functions
     chat_socket = helper.connect_to_server(ADDR)
+    nickname = chat_login(chat_socket)
+
+    if not nickname:
+        chat_socket.close()
+        return
     # sending user name to the server
-    helper.send_msg(chat_socket, USERS[nickname])
     while True:
 
         # Get input from the user
         message = input()
 
-
         if message == "exit":
             print("Goodbye")
 
             # sending exit to the server so the server will close connection 
-            helper.send_msg(chat_socket, SERVER_EXIT)
+            helper.send_msg(chat_socket, {"msg": SERVER_EXIT})
 
             # getting server response - "Msg Received"
-            print(helper.recv_msg(chat_socket))
+            print(helper.recv_msg(chat_socket)["msg"])
 
             break
         elif message == SERVER_EXIT:
@@ -83,11 +97,10 @@ def chat_print(nickname):
         write_to_file(USERS[nickname], message)
 
         # sending the user input to the server
-        helper.send_msg(chat_socket, message)
+        helper.send_msg(chat_socket, {"msg": message})
 
         # getting server response - "Msg Received"
-        print(helper.recv_msg(chat_socket))
-
+        print(helper.recv_msg(chat_socket)["msg"])
 
 
 def config_write():
@@ -100,10 +113,9 @@ def config_write():
 
 def main():
     config_load()
-    nickname = chat_login()
-
-    chat_print(nickname)
+    chat_print()
     config_write()
+
 
 if __name__ == '__main__':
     main()

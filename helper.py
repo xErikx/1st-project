@@ -1,4 +1,5 @@
 import socket
+import json
 
 MSG_LENGTH = 128
 FORMAT = "utf-8"
@@ -6,7 +7,7 @@ SERVER_EXIT = "!QUIT"
 
 def send_msg(socket, msg):
     # initial message which must be sent
-    message = msg.encode(FORMAT)
+    message = json.dumps(msg).encode(FORMAT)
     # variable for message char length as integer
     msg_length = len(message)
     # converting length into str and formatting into `utf-8`
@@ -21,18 +22,19 @@ def send_msg(socket, msg):
 
 def recv_msg(socket):
     msg_length = socket.recv(MSG_LENGTH).decode(FORMAT)  # formatting msg's from chat in length
-    
-    msg = -1
+
+    dict_msg = {}
 
     if msg_length:  # if msg's are not empty
         
         msg_length = int(msg_length)  # reformat length from str to int
-        msg = socket.recv(msg_length).decode(FORMAT)  # receiving messages and formatting them
-        
-        if msg == SERVER_EXIT:  # Server exit
-            return -1 
 
-    return msg
+        msg = socket.recv(msg_length).decode(FORMAT)  # receiving messages and formatting them
+        dict_msg = json.loads(msg)
+        #if dict_msg["msg"] == SERVER_EXIT:  # Server exit
+        #    return -1
+
+    return dict_msg
 
 def connect_to_server(address):
     """
