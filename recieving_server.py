@@ -51,7 +51,7 @@ def chat_connect(conn, addr):  # chat_connection to our server
 
     # {"user_name" : user_name, "password": password}
 
-    client_name = ""
+    client_name = USERS[client_creds["user_name"]]["name"]
     while connection:
 
         # Waiting for a message from client 

@@ -2,6 +2,7 @@ import datetime
 import socket
 import json
 import helper
+import hashlib
 
 USERS = {}
 MSG_LENGTH = 128
@@ -42,7 +43,10 @@ def chat_login(chat_socket):
     if choice == 2:
         user_name = input("Enter your nickname: ")
         password = input("Enter your password: ")
-        helper.send_msg(chat_socket, {"operation": "login", "user_name": user_name, "password": password})
+        bytes_password = str.encode(password)
+        hashed_password = hashlib.sha1(bytes_password)
+        hex_dig = hashed_password.hexdigest()
+        helper.send_msg(chat_socket, {"operation": "login", "user_name": user_name, "password": hex_dig})
         status = helper.recv_msg(chat_socket)["status"]
         print(status)
         if not status:
@@ -51,7 +55,10 @@ def chat_login(chat_socket):
         nickname = input("Enter your nickname: ")
         user_name = input("Enter your name: ")
         password = input("Enter your password: ")
-        helper.send_msg(chat_socket, {"operation": "register", "user_name": nickname, "name": user_name, "password": password})
+        bytes_password = str.encode(password)
+        hashed_password = hashlib.sha1(bytes_password)
+        hex_dig = hashed_password.hexdigest()
+        helper.send_msg(chat_socket, {"operation": "register", "user_name": nickname, "name": user_name, "password": hex_dig})
         status = helper.recv_msg(chat_socket)["status"]
         print(status)
         if not status:
@@ -94,7 +101,7 @@ def chat_print():
             continue
 
         # writing the message to the file (local, not sending to the server)
-        write_to_file(USERS[nickname], message)
+        # write_to_file(USERS[nickname], message)
 
         # sending the user input to the server
         helper.send_msg(chat_socket, {"msg": message})
@@ -112,9 +119,7 @@ def config_write():
 
 
 def main():
-    config_load()
     chat_print()
-    config_write()
 
 
 if __name__ == '__main__':

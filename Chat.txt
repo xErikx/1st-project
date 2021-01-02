@@ -10,3 +10,11 @@ Erik: hi 2020-12-31 16:29:52
 {'name': 'Danju', 'password': '887'}: help 2020-12-31 17:38:49
 {'name': 'Danju', 'password': '887'}: cls 2020-12-31 17:41:15
 {'name': 'Erik', 'password': '1234'}: hi 2020-12-31 17:48:17
+{'name': 'Erik', 'password': '1234'}: hello there 2021-01-02 14:52:25
+{'name': 'Erik', 'password': '1234'}: hello there 2021-01-02 14:55:28
+{'name': 'Erik', 'password': '1234'}: hello again, testing 2021-01-02 14:58:19
+{'name': 'Erik', 'password': '1234'}: hi 2021-01-02 14:59:49
+{'name': 'Erik', 'password': '1234'}: hi 2021-01-02 15:00:55
+{'name': 'Erik', 'password': '1234'}: check 2021-01-02 15:05:11
+{'name': 'Erik', 'password': '1234'}: hello 2021-01-02 16:14:57
+{'name': 'Erik', 'password': '1234'}: hi 2021-01-02 16:20:44
