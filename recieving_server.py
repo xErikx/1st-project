@@ -4,6 +4,8 @@ import queue
 import helper
 import datetime
 import json
+import time
+from plyer import notification
 
 MSG_LENGTH = 128
 SERVER = socket.gethostbyname(socket.gethostname())
@@ -69,9 +71,23 @@ def chat_connect(conn, addr):  # chat_connection to our server
 
         # returning to the client that the message arrived 
         helper.send_msg(conn, {"msg": "Msg received"})
+        notification_app(f"{msg}: {now.strftime('%Y-%m-%d %H:%M:%S')}", client_name)
 
         # closing the server
     conn.close()
+
+
+def notification_app(message, nickname):
+    notification.notify(
+        title=nickname,
+        message=message,
+        app_name="1st-project Chat",
+        # displaying time
+        timeout=2
+    )
+    # waiting time
+    time.sleep(7)
+
 
 
 def server_write_to_file():
