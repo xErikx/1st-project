@@ -1,6 +1,7 @@
 import socket
 import helper
 import threading
+import telegram_send
 
 SERVER_IP = socket.gethostbyname(socket.gethostname())
 PORT = 4041
@@ -11,6 +12,7 @@ LIST_MASSAGES = []
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
+
 
 def client_handling(client_socket, address):
     # we want to send 'Welcome'
@@ -60,8 +62,7 @@ def server_start():
     print(f"Server is listening on {SERVER_IP}")
 
     while True:
-
-        # getting connection from client 
+        # getting connection from client
         connection, address = server.accept()
         client_thread = threading.Thread(target=client_handling, args=(connection, address))
         client_thread.start()

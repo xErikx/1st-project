@@ -6,6 +6,7 @@ import datetime
 import json
 import time
 from plyer import notification
+import telegram_send
 
 MSG_LENGTH = 128
 SERVER = socket.gethostbyname(socket.gethostname())
@@ -72,6 +73,7 @@ def chat_connect(conn, addr):  # chat_connection to our server
         # returning to the client that the message arrived 
         helper.send_msg(conn, {"msg": "Msg received"})
         notification_app(f"{msg}: {now.strftime('%Y-%m-%d %H:%M:%S')}", client_name)
+        telegram_send.send(messages=[f"{client_name}: {msg}"])
 
         # closing the server
     conn.close()
@@ -110,7 +112,7 @@ def server_write_to_file():
 
 def msg_file_save(sample_msg):
     f = open("ChatMassages.txt", mode="a")
-    f.write(sample_msg)
+    f.write(sample_msg + "\n")
     f.close()
 
 
