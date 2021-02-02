@@ -7,6 +7,7 @@ import json
 import time
 from plyer import notification
 import telegram_send
+import telegram
 
 MSG_LENGTH = 128
 SERVER = socket.gethostbyname(socket.gethostname())
@@ -74,6 +75,7 @@ def chat_connect(conn, addr):  # chat_connection to our server
         helper.send_msg(conn, {"msg": "Msg received"})
         notification_app(f"{msg}: {now.strftime('%Y-%m-%d %H:%M:%S')}", client_name)
         telegram_send.send(messages=[f"{client_name}: {msg}"])
+        telegram_chat_send(f"{client_name}: {msg}")
 
         # closing the server
     conn.close()
@@ -88,8 +90,17 @@ def notification_app(message, nickname):
         timeout=2
     )
     # waiting time
-    time.sleep(7)
+    time.sleep(5)
 
+
+def telegram_chat_send(msg, chat_id=-391600173, token="1698512750:AAHYWLH6sdTi6kIVJbTBpqjrBneZgt9rS8w"):
+    """
+    Send a message to a telegram group specified on chatId
+    """
+    # Our bot
+    bot = telegram.Bot(token=token)
+    # sending the message through the bot
+    bot.sendMessage(chat_id=chat_id, text=msg)
 
 
 def server_write_to_file():
